@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TimezoneController {
 
     @PostMapping("/")
-    public Timezone timezoneCalculate(@RequestBody Timezone timezone){ 
-        return new TimezoneResponse(timezone);
-    } 
+    public TimezoneResponse<Timezone> timezoneCalculate(@RequestBody Timezone timezone){ 
+        return new TimezoneResponse<Timezone>(timezone);
+        
+    }
 }

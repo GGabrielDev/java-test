@@ -8,21 +8,21 @@ import java.time.format.DateTimeFormatter;
 public class Timezone {
 
     private final String timezone;
-    private final String outputTime;
+    private final String time;
     private static final String OUTPUT_ZONE = "UTC";
 
-    public Timezone(String time, Integer timezone) {
+    public Timezone(String inputTime, Integer inputTimezone) {
         this.timezone = OUTPUT_ZONE;
-        this.outputTime = calculateOffsetOfTime(time, timezone);
+        this.time = calculateOffsetOfTime(inputTime, inputTimezone);
     }
 
-    private String calculateOffsetOfTime(String time, Integer offset)  {
+    private String calculateOffsetOfTime(String time, Integer timezone)  {
         String output, strOffset = new String();
 
-        strOffset = (offset > -10 && offset < 0)
-            ? String.format("%03d", offset) 
-            : String.format("%02d", offset);
-        strOffset = (offset >= 0)
+        strOffset = (timezone > -10 && timezone < 0)
+            ? String.format("%03d", timezone) 
+            : String.format("%02d", timezone);
+        strOffset = (timezone >= 0)
             ? String.format("+%s:00", strOffset)
             : String.format("%s:00", strOffset);
 
@@ -43,8 +43,8 @@ public class Timezone {
         return timezone;
     }
 
-    public String getOutputTime() {
-        return outputTime;
+    public String getTime() {
+        return time;
     }
 
 }
