@@ -7,15 +7,16 @@ import java.time.format.DateTimeFormatter;
 
 public class Timezone {
 
-    private final String offset;
+    private final String timezone;
     private final String outputTime;
+    private static final String OUTPUT_ZONE = "UTC";
 
-    public Timezone(String time, Integer offset) {
-        this.offset = "UTC" ;
-        this.outputTime = calcTime(time, offset);
+    public Timezone(String time, Integer timezone) {
+        this.timezone = OUTPUT_ZONE;
+        this.outputTime = calculateOffsetOfTime(time, timezone);
     }
 
-    private String calcTime(String time, Integer offset)  {
+    private String calculateOffsetOfTime(String time, Integer offset)  {
         String output, strOffset = new String();
 
         strOffset = (offset > -10 && offset < 0)
@@ -29,7 +30,7 @@ public class Timezone {
         ZonedDateTime inputTime = LocalDateTime.parse(String.format("2020-01-01T%s", time), 
             DateTimeFormatter.ISO_DATE_TIME).atZone(inputZone);
 
-        ZoneId outputZone = ZoneId.of("UTC");
+        ZoneId outputZone = ZoneId.of(OUTPUT_ZONE);
         ZonedDateTime outputTime = inputTime.withZoneSameInstant(outputZone);
 
         DateTimeFormatter outputFormat = DateTimeFormatter.ISO_LOCAL_TIME;
@@ -38,8 +39,8 @@ public class Timezone {
         return output;
     }
 
-    public String getOffset() {
-        return offset;
+    public String getTimezone() {
+        return timezone;
     }
 
     public String getOutputTime() {
